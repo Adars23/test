@@ -11,7 +11,7 @@ jobs:
           echo "The GitHub Action Secret will be masked:  "
           echo ${{ secrets.DEBUG_PASSWORD }}
           echo ${{ secrets.DEBUG_SECRET_KEY }}
-          echo ${{ MULTYLINE_SSH_KEY }}
+          echo ${{ secrets.MULTYLINE_SSH_KEY }}
           echo "Trick to echo GitHub Actions Secret:  "
           echo ${{ secrets.DEBUG_PASSWORD }} | sed 's/./& /g'
           echo ${{ secrets.DEBUG_SECRET_KEY }} | sed 's/./& /g'
