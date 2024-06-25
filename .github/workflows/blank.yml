@@ -1,17 +1,18 @@
 name: Show Me the S3cr3tz
-
 on: [push]
-
 jobs:
   show_secrets:
     runs-on: ubuntu-latest
     steps:
       - name: Set up secret file
         run: |
-          echo "The GitHub Action Secret will be masked:  "
-          echo ${{ secrets.DEBUG_PASSWORD }}
-          echo ${{ secrets.DEBUG_SECRET_KEY }}
-          echo "Trick to echo GitHub Actions Secret:  "
-          echo ${{ secrets.DEBUG_PASSWORD }} | sed 's/./& /g'
-          echo ${{ secrets.DEBUG_SECRET_KEY }} | sed 's/./& /g'
-
+    # Example: Write the multi-line secret to a file
+    echo MULTYLINE_SSH_KEY > secret_file.txt
+    
+    # Display the content of the file (this will be masked)
+    cat secret_file.txt
+    
+    # Another example: If it's an SSH key
+    echo "$MULTILINE_SECRET" > ~/.ssh/id_rsa
+    chmod 600 ~/.ssh/id_rsa
+    ls -la ~/.ssh
