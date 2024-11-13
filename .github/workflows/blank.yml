@@ -1,18 +1,27 @@
-name: Show Me the S3cr3tz
-on: [push]
+name: Update File with Build Number
+
+on:
+  push:
+    branches:
+      - main
+
 jobs:
-  show_secrets:
+  update-file:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Set up secret file
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Update version file with build number
+        run: echo "Build Number: ${{ github.run_number }}" > build.txt
+
+      - name: Commit changes
         run: |
-    # Example: Write the multi-line secret to a file
-    echo MULTYLINE_SSH_KEY > secret_file.txt
-    
-    # Display the content of the file (this will be masked)
-    cat secret_file.txt
-    
-    # Another example: If it's an SSH key
-    echo "$MULTILINE_SECRET" > ~/.ssh/id_rsa
-    chmod 600 ~/.ssh/id_rsa
-    ls -la ~/.ssh
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add build.txt
+          git commit -m "Update build number to ${{ github.run_number }}"
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.TOKEN }}
